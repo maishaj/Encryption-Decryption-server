@@ -4,6 +4,7 @@ const router = express.Router();
 const multer = require("multer");
 const PlayfairCipher = require("../engines/playfair");
 const HillCipher = require("../engines/hill");
+const VigenereEngine = require("../engines/vigenere");
 
 // Hold files cleanly in memory buffers
 const upload = multer({ storage: multer.memoryStorage() });
@@ -157,11 +158,90 @@ router.post("/:algorithm/:action", upload.single("file"), async (req, res) => {
       }
     }
 
-    // 5. Fallbacks for missing algorithm engines
-    if (["vigenere", "rsa"].includes(algoLower)) {
-      return res.status(400).json({
-        error: `The ${algorithm.toUpperCase()} interface hook is live, but its core engine logic file is not implemented yet.`,
-      });
+    // 5. Vigenere Cipher Execution Route
+    if (algoLower === "vigenere") {
+      // Fallback to global 'key' if 'vigenereKey' is not explicitly provided by the frontend
+      const secretKeyInput = req.body.vigenereKey || key || "";
+      const isEncrypt = action === "encrypt";
+
+      if (!secretKeyInput.trim()) {
+        return res.status(400).json({
+          error:
+            "A valid alphabetic Key string is required for Vigenere execution.",
+        });
+      }
+
+      // Instantiate the Vigenere engine
+      const VigenereEngine = require("../engines/vigenere");
+      const cipher = new VigenereEngine(secretKeyInput);
+
+      // Text Processing Block
+      if (inputType === "text") {
+        // FIXED: Uses .trim() to catch empty or whitespace-only inputs correctly
+        if (!text.trim()) {
+          return res.status(400).json({
+            error: "Input payload text string is empty.",
+          });
+        }
+        const result = cipher.processText(text.toString(), isEncrypt);
+        return res.json({ result });
+      }
+
+      // Image / Binary Buffer Processing Block
+      if (inputType === "image") {
+        if (!req.file) {
+          return res.status(400).json({
+            error: "Multi-part binary asset file not found in request.",
+          });
+        }
+        const processedBuffer = cipher.processBuffer(
+          req.file.buffer,
+          isEncrypt,
+        );
+
+        // Dynamic header setup to support raw text output for encrypted byte buffers
+        res.setHeader("Content-Type", isEncrypt ? "text/plain" : "image/png");
+        return res.send(processedBuffer);
+      }
+    }
+
+    // 6. Caesar Cipher Execution Route
+    if (algoLower === "caesar") {
+      const CaesarEngine = require("../engines/caesar");
+      let cipher;
+
+      // Intercept initialization validation errors safely
+      try {
+        cipher = new CaesarEngine(key);
+      } catch (validationError) {
+        return res.status(400).json({ error: validationError.message });
+      }
+
+      const isEncrypt = action === "encrypt";
+
+      if (inputType === "text") {
+        if (!text.trim()) {
+          return res
+            .status(400)
+            .json({ error: "Input payload text string is empty." });
+        }
+        const result = cipher.processText(text.toString(), isEncrypt);
+        return res.json({ result });
+      }
+
+      if (inputType === "image") {
+        if (!req.file) {
+          return res.status(400).json({
+            error: "Multi-part binary asset file not found in request.",
+          });
+        }
+        const processedBuffer = cipher.processBuffer(
+          req.file.buffer,
+          isEncrypt,
+        );
+        res.setHeader("Content-Type", isEncrypt ? "text/plain" : "image/png");
+        return res.send(processedBuffer);
+      }
     }
 
     return res
