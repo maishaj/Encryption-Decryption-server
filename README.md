@@ -10,7 +10,7 @@ A full-stack, secure web application designed to demonstrate the implementation 
 
 ## 👥 Core Development Team & Contributions
 
-This project was engineered as a collaborative effort. Below are the core cryptographic module distributions and their respective engineers:
+This project was engineered as a collaborative effort. Below are the core cryptographic module distributions and their respective doers:
 
 | Module | Contributor | Registration No. | GitHub Profile |
 | :--- | :--- | :--- | :--- |
