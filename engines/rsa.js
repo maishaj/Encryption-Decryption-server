@@ -1,8 +1,3 @@
-// backend/engines/rsa.js
-/**
- * Parses user input key configurations formatted as comma-separated components or basic JSON,
- * for example: "65537, 3233" or {"e": 65537, "n": 3233}
- */
 const parseKeyComponent = (keyStr) => {
   if (!keyStr) return null;
   try {
