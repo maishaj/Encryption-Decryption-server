@@ -4,7 +4,7 @@ const cors = require("cors");
 const cryptoRoutes = require("./routes/cryptoRoutes");
 
 const app = express();
-const PORT = 3000; 
+const PORT = process.env.PORT || 3000;
 
 // Enable cross-origin resource sharing for frontend port access
 app.use(cors());
