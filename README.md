@@ -12,13 +12,13 @@ A full-stack, secure web application designed to demonstrate the implementation 
 
 This project was engineered as a collaborative effort. Below are the core cryptographic module distributions and their respective doers:
 
-| Module | Contributor | Registration No. | GitHub Profile |
-| :--- | :--- | :--- | :--- |
-| **RSA Cipher** | Kazi Maisha Jannath | 2021331502 | [@maishaj](https://github.com/maishaj) |
-| **Caesar Cipher** | Kazi Nisah Maryam | 2021331533 | — |
-| **Playfair Cipher** | Samina Meherin Toma | 2021331563 | [@Mehrin555](https://github.com/Mehrin555) |
-| **Hill Cipher** | Shajeda Sultana | 2021331559 | [@SSLiza](https://github.com/SSLiza) |
-| **Vigenère Cipher** | Ananya Prova Debnath | 2021331519 | [@aprova303](https://github.com/aprova303) |
+| Module              | Contributor          | Registration No. | GitHub Profile                             |
+| :------------------ | :------------------- | :--------------- | :----------------------------------------- |
+| **RSA Cipher**      | Kazi Maisha Jannath  | 2021331502       | [@maishaj](https://github.com/maishaj)     |
+| **Playfair Cipher** | Samina Meherin Toma  | 2021331563       | [@Mehrin555](https://github.com/Mehrin555) |
+| **Hill Cipher**     | Shajeda Sultana      | 2021331559       | [@SSLiza](https://github.com/SSLiza)       |
+| **Vigenère Cipher** | Ananya Prova Debnath | 2021331519       | [@aprova303](https://github.com/aprova303) |
+| **Caesar Cipher**   | Kazi Nisah Maryam    | 2021331533       | [@nisahkazi](https://github.com/nisahkazi) |
 
 ---
 
